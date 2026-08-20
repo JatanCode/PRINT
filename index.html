@@ -8,79 +8,52 @@
     
     <style>
         :root {
-            --bg-main: #090c15;
-            --bg-card: #151923;
-            --bg-tab-container: #1a1e29;
-            --bg-upload: #0c0f17;
-            --accent-purple: #635bff;
-            --accent-purple-hover: #7b74ff;
-            --text-main: #ffffff;
-            --text-muted: #8b949e;
-            --border-color: #2a2f3d;
-            --success-color: #238636;
-            --danger-color: #da3633;
-            --warning-color: #d29922;
+            --bg-main: #090c15; --bg-card: #151923; --bg-tab-container: #1a1e29; --bg-upload: #0c0f17;
+            --accent-purple: #635bff; --accent-purple-hover: #7b74ff; --text-main: #ffffff;
+            --text-muted: #8b949e; --border-color: #2a2f3d; --success-color: #238636;
+            --danger-color: #da3633; --warning-color: #d29922;
         }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
+        body { background-color: var(--bg-main); color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         .top-nav { width: 100%; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
         .logo-area { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; }
         .logo-icon { background-color: var(--accent-purple); padding: 8px 12px; border-radius: 8px; font-size: 1.2rem; }
         .status-pill { background-color: rgba(35, 134, 54, 0.15); color: #3fb950; border: 1px solid rgba(35, 134, 54, 0.4); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
-
         .hero { text-align: center; margin: 2rem 0 3rem 0; }
         .hero h1 { font-size: 2.5rem; font-weight: 700; margin: 0 0 10px 0; letter-spacing: -0.5px; }
         .hero p { color: var(--text-muted); font-size: 1rem; margin: 0; }
-
         .tab-menu { background-color: var(--bg-tab-container); padding: 6px; border-radius: 12px; display: flex; gap: 5px; margin-bottom: 2rem; width: 100%; max-width: 800px; box-sizing: border-box; }
         .tab-btn { flex: 1; background: transparent; color: var(--text-muted); border: none; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: 0.3s; }
         .tab-btn:hover { color: var(--text-main); }
         .tab-btn.active { background-color: var(--accent-purple); color: var(--text-main); box-shadow: 0 4px 12px rgba(99, 91, 255, 0.3); }
-
         .container { width: 100%; max-width: 800px; padding: 0 1rem; box-sizing: border-box; margin-bottom: 3rem; }
         .card { background-color: var(--bg-card); padding: 2rem; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .card-header { margin-bottom: 1.5rem; }
         .card-header h2 { margin: 0 0 5px 0; font-size: 1.25rem; }
         .card-header p { color: var(--text-muted); margin: 0; font-size: 0.9rem; }
-
         .file-upload-wrapper { margin-bottom: 2rem; }
         .file-upload-label { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3.5rem 2rem; border: 2px dashed var(--border-color); border-radius: 12px; cursor: pointer; transition: 0.3s; color: var(--text-muted); background-color: var(--bg-upload); }
         .file-upload-label:hover { border-color: var(--accent-purple); background-color: #12151f; color: var(--text-main); }
         .file-upload-label svg { width: 40px; height: 40px; margin-bottom: 15px; fill: var(--accent-purple); }
         input[type="file"] { display: none; }
         #file-name-display { margin-top: 0.5rem; font-size: 0.9rem; font-weight: 500; color: var(--text-main); }
-
         .action-row { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
         .input-group { display: flex; align-items: center; gap: 15px; }
         .input-group label { font-size: 0.9rem; color: var(--text-muted); }
         input[type="datetime-local"] { padding: 0.6rem 1rem; background-color: var(--bg-upload); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Inter', sans-serif; color-scheme: dark; }
-
-        .btn-primary { background-color: var(--accent-purple); color: white; border: none; padding: 0.8rem 1.8rem; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .btn-primary { background-color: var(--accent-purple); color: white; border: none; padding: 0.8rem 1.8rem; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%; margin-top: 1.5rem; }
         .btn-primary:hover { background-color: var(--accent-purple-hover); }
-
+        .btn-primary:disabled { background-color: #444; cursor: not-allowed; }
         .batch-actions { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
         .btn-batch { background-color: var(--bg-upload); color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
         .btn-batch:hover { color: var(--text-main); border-color: #444; }
         .btn-batch.danger:hover { color: var(--danger-color); border-color: var(--danger-color); }
-
         #order-list { list-style: none; padding: 0; margin: 0; }
         .order-item { background-color: var(--bg-upload); border: 1px solid var(--border-color); padding: 1rem 1.5rem; border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; gap: 1.5rem; }
         .order-info { flex-grow: 1; display: flex; flex-direction: column; }
         .order-info strong { font-size: 1rem; margin-bottom: 4px; }
         .due-date-text { font-size: 0.8rem; color: var(--text-muted); }
         .status-text { font-size: 0.85rem; margin-top: 6px; font-weight: 600; }
-
         .status-btns { display: flex; gap: 8px; }
         .status-btns button { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 8px; border-radius: 6px; cursor: pointer; color: var(--text-muted); transition: 0.2s; display: flex; align-items: center; justify-content: center; }
         .status-btns button:hover { color: var(--text-main); border-color: #555; }
@@ -88,7 +61,6 @@
         .btn-pending:hover { border-color: var(--warning-color) !important; color: var(--warning-color) !important; }
         .btn-delete:hover { border-color: var(--danger-color) !important; color: var(--danger-color) !important; }
         .btn-download:hover { border-color: var(--accent-purple) !important; color: var(--accent-purple) !important; }
-
         input[type="checkbox"] { width: 1.2rem; height: 1.2rem; accent-color: var(--accent-purple); cursor: pointer; background-color: var(--bg-upload); }
     </style>
 </head>
@@ -107,29 +79,22 @@
 
     <div class="hero">
         <h1>Upload, Order & Track Prints</h1>
-        <p>Upload your documents, set a due date, and track the status directly in your browser.</p>
-    </div>
-
-    <div class="tab-menu">
-        <button class="tab-btn active">📝 Order New Print</button>
-        <button class="tab-btn">📊 View Status</button>
-        <button class="tab-btn">⚙️ Settings</button>
+        <p>Upload your documents securely to Drive, set a due date, and track the status.</p>
     </div>
 
     <div class="container">
-        
         <div class="card">
             <div class="card-header">
                 <h2>New Print Order</h2>
-                <p>Optimize your workflow by selecting a file and pasting its Drive link.</p>
+                <p>Select your file. It will be securely uploaded to Google Drive in the background.</p>
             </div>
             
             <form id="upload-form">
                 <div class="file-upload-wrapper">
                     <label for="file-input" class="file-upload-label">
                         <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
-                        <span>Click to choose file name for record</span>
-                        <div id="file-name-display">Single Document File</div>
+                        <span>Click to choose file to upload</span>
+                        <div id="file-name-display">No File Selected</div>
                     </label>
                     <input type="file" id="file-input" required>
                 </div>
@@ -141,17 +106,10 @@
                     </div>
                 </div>
                 
-                <div style="margin-top: 1rem;">
-                    <input type="url" id="drive-link-input" placeholder="🔗 Paste Google Drive Share Link here..." required 
-                           style="width: 100%; padding: 0.8rem; background-color: var(--bg-upload); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box;">
-                </div>
-                
-                <div style="margin-top: 1.5rem;">
-                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Order & Save Link
-                    </button>
-                </div>
+                <button type="submit" id="submit-btn" class="btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Upload & Order Print</span>
+                </button>
             </form>
         </div>
 
@@ -171,10 +129,17 @@
     </div>
 
     <script type="module">
-        // Firebase Setup using your exact config and CDN links
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         
+        // ==========================================
+        // 1. PASTE YOUR APPS SCRIPT URL HERE
+        // ==========================================
+        const APPS_SCRIPT_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+        // ==========================================
+        // 2. FIREBASE CONFIGURATION
+        // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyAArnoE_c0F_KHBkyhYgEDFD6vKs3JPTQY",
             authDomain: "print-a70d8.firebaseapp.com",
@@ -191,63 +156,98 @@
         const fileInput = document.getElementById('file-input');
         const fileNameDisplay = document.getElementById('file-name-display');
         const dueDateInput = document.getElementById('due-date-input');
-        const driveLinkInput = document.getElementById('drive-link-input');
+        const submitBtn = document.getElementById('submit-btn');
         const orderList = document.getElementById('order-list');
         const batchDeleteBtn = document.getElementById('batch-delete');
         const batchPendingBtn = document.getElementById('batch-pending');
 
-        // File selection UI update
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 fileNameDisplay.textContent = e.target.files[0].name;
                 fileNameDisplay.style.color = "var(--accent-purple)";
             } else {
-                fileNameDisplay.textContent = "Single Document File";
+                fileNameDisplay.textContent = "No File Selected";
                 fileNameDisplay.style.color = "var(--text-muted)";
             }
         });
 
-        // 1. REAL-TIME LISTENER: This instantly syncs everyone's screen with the database
+        // Sync Database Real-time
         onSnapshot(collection(db, "orders"), (snapshot) => {
-            orderList.innerHTML = ''; // Clear the list first
+            orderList.innerHTML = '';
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 addOrderToUI(doc.id, data.fileName, data.status, data.dueDate, data.driveLink);
             });
         });
 
-        // 2. ADD ORDER TO DATABASE
+        // File to Base64 Reader Helper
+        const getBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = error => reject(error);
+        });
+
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const file = fileInput.files[0];
             const dueDateValue = dueDateInput.value;
-            const driveLinkValue = driveLinkInput.value;
             
-            if (file && dueDateValue && driveLinkValue) {
-                const formattedDate = new Date(dueDateValue).toLocaleString([], {
-                    year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-                });
+            if (file && dueDateValue) {
+                // Change UI to loading state
+                submitBtn.disabled = true;
+                submitBtn.querySelector('span').textContent = "Uploading to Drive... Please Wait";
 
-                // Send to Firebase instead of just local UI
-                await addDoc(collection(db, "orders"), {
-                    fileName: file.name,
-                    status: 'Pending',
-                    dueDate: formattedDate,
-                    driveLink: driveLinkValue,
-                    createdAt: Date.now()
-                });
-                
-                uploadForm.reset();
-                fileNameDisplay.textContent = "Single Document File";
-                fileNameDisplay.style.color = "var(--text-muted)";
+                try {
+                    // Convert file to Base64
+                    const base64Data = await getBase64(file);
+                    
+                    // Send to Google Apps Script
+                    const response = await fetch(APPS_SCRIPT_URL, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            fileName: file.name,
+                            mimeType: file.type,
+                            base64: base64Data
+                        })
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.status === "success") {
+                        const formattedDate = new Date(dueDateValue).toLocaleString([], {
+                            year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                        });
+
+                        // Save everything to Firebase
+                        await addDoc(collection(db, "orders"), {
+                            fileName: file.name,
+                            status: 'Pending',
+                            dueDate: formattedDate,
+                            driveLink: result.url, // Save the generated Google Drive link
+                            createdAt: Date.now()
+                        });
+                        
+                        uploadForm.reset();
+                        fileNameDisplay.textContent = "No File Selected";
+                        fileNameDisplay.style.color = "var(--text-muted)";
+                    } else {
+                        alert("Upload failed: " + result.message);
+                    }
+                } catch (error) {
+                    alert("Error connecting to Google Drive script.");
+                    console.error(error);
+                } finally {
+                    // Reset Button
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('span').textContent = "Upload & Order Print";
+                }
             }
         });
 
-        // 3. UI GENERATOR & BUTTON ACTIONS
         function addOrderToUI(id, fileName, status, dueDate, driveLink) {
             const li = document.createElement('li');
             li.className = 'order-item';
-            
             let statusColor = status === 'Printed' ? 'var(--success-color)' : 'var(--warning-color)';
 
             li.innerHTML = `
@@ -265,35 +265,26 @@
                 </div>
             `;
             
-            // Open Link
             li.querySelector('.btn-download').addEventListener('click', () => {
                 if(driveLink) window.open(driveLink, '_blank');
             });
-
-            // Update Status in Firebase
             li.querySelector('.btn-done').addEventListener('click', async () => {
                 await updateDoc(doc(db, "orders", id), { status: 'Printed' });
             });
-
             li.querySelector('.btn-pending').addEventListener('click', async () => {
                 await updateDoc(doc(db, "orders", id), { status: 'Pending' });
             });
-
-            // Delete from Firebase
             li.querySelector('.btn-delete').addEventListener('click', async () => {
                 await deleteDoc(doc(db, "orders", id));
             });
-
             orderList.appendChild(li);
         }
 
-        // 4. BATCH ACTIONS
         batchDeleteBtn.addEventListener('click', () => {
             document.querySelectorAll('.order-checkbox:checked').forEach(async (checkbox) => {
                 await deleteDoc(doc(db, "orders", checkbox.dataset.id));
             });
         });
-
         batchPendingBtn.addEventListener('click', () => {
             document.querySelectorAll('.order-checkbox:checked').forEach(async (checkbox) => {
                 await updateDoc(doc(db, "orders", checkbox.dataset.id), { status: 'Pending' });
