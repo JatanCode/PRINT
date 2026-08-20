@@ -164,27 +164,23 @@
     </div>
 
     <script type="module">
-        // ==========================================
-        // FIREBASE CONFIGURATION (Uncomment later)
-        // ==========================================
-        /*
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-        
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_ID",
-            appId: "YOUR_APP_ID"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-        */
+      // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAArnoE_c0F_KHBkyhYgEDFD6vKs3JPTQY",
+  authDomain: "print-a70d8.firebaseapp.com",
+  projectId: "print-a70d8",
+  storageBucket: "print-a70d8.firebasestorage.app",
+  messagingSenderId: "1043871458988",
+  appId: "1:1043871458988:web:4f1f27b2ec499692ca6109"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
         const uploadForm = document.getElementById('upload-form');
         const fileInput = document.getElementById('file-input');
