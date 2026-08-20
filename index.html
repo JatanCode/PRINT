@@ -121,14 +121,14 @@
         <div class="card">
             <div class="card-header">
                 <h2>New Print Order</h2>
-                <p>Optimize your workflow by uploading standard PDF or document files.</p>
+                <p>Optimize your workflow by selecting a file and pasting its Drive link.</p>
             </div>
             
             <form id="upload-form">
                 <div class="file-upload-wrapper">
                     <label for="file-input" class="file-upload-label">
                         <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
-                        <span>Click to browse or drag file here</span>
+                        <span>Click to choose file name for record</span>
                         <div id="file-name-display">Single Document File</div>
                     </label>
                     <input type="file" id="file-input" required>
@@ -139,9 +139,17 @@
                         <label for="due-date-input">Required By:</label>
                         <input type="datetime-local" id="due-date-input" required>
                     </div>
-                    <button type="submit" class="btn-primary">
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                    <input type="url" id="drive-link-input" placeholder="🔗 Paste Google Drive Share Link here..." required 
+                           style="width: 100%; padding: 0.8rem; background-color: var(--bg-upload); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box;">
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Order & Upload
+                        Order & Save Link
                     </button>
                 </div>
             </form>
@@ -164,28 +172,31 @@
     </div>
 
     <script type="module">
-      // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAArnoE_c0F_KHBkyhYgEDFD6vKs3JPTQY",
-  authDomain: "print-a70d8.firebaseapp.com",
-  projectId: "print-a70d8",
-  storageBucket: "print-a70d8.firebasestorage.app",
-  messagingSenderId: "1043871458988",
-  appId: "1:1043871458988:web:4f1f27b2ec499692ca6109"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+        // ==========================================
+        // FIREBASE FIRESTORE CONFIGURATION (Uncomment later)
+        // ==========================================
+        /*
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        */
 
         const uploadForm = document.getElementById('upload-form');
         const fileInput = document.getElementById('file-input');
         const fileNameDisplay = document.getElementById('file-name-display');
         const dueDateInput = document.getElementById('due-date-input');
+        const driveLinkInput = document.getElementById('drive-link-input');
         const orderList = document.getElementById('order-list');
         const batchDeleteBtn = document.getElementById('batch-delete');
         const batchPendingBtn = document.getElementById('batch-pending');
@@ -204,14 +215,17 @@ const app = initializeApp(firebaseConfig);
             e.preventDefault();
             const file = fileInput.files[0];
             const dueDateValue = dueDateInput.value;
+            const driveLinkValue = driveLinkInput.value;
             
-            if (file && dueDateValue) {
+            if (file && dueDateValue && driveLinkValue) {
                 const formattedDate = new Date(dueDateValue).toLocaleString([], {
                     year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
                 });
 
                 const tempId = 'order_' + Math.random().toString(36).substr(2, 9);
-                addOrderToUI(tempId, file.name, 'Pending', formattedDate);
+                
+                // Pass all data including the drive link to the UI function
+                addOrderToUI(tempId, file.name, 'Pending', formattedDate, driveLinkValue);
                 
                 uploadForm.reset();
                 fileNameDisplay.textContent = "Single Document File";
@@ -219,7 +233,7 @@ const app = initializeApp(firebaseConfig);
             }
         });
 
-        function addOrderToUI(id, fileName, status, dueDate) {
+        function addOrderToUI(id, fileName, status, dueDate, driveLink) {
             const li = document.createElement('li');
             li.className = 'order-item';
             li.dataset.id = id; 
@@ -234,7 +248,7 @@ const app = initializeApp(firebaseConfig);
                     <span class="status-text" style="color: ${statusColor}">${status}</span>
                 </div>
                 <div class="status-btns">
-                    <button class="btn-download" title="Download File">📥</button>
+                    <button class="btn-download" title="Open in Google Drive">📥</button>
                     <button class="btn-done" title="Mark as Done">✔️</button>
                     <button class="btn-pending" title="Mark as Pending">⏳</button>
                     <button class="btn-delete" title="Remove Order">🗑️</button>
@@ -243,8 +257,13 @@ const app = initializeApp(firebaseConfig);
 
             const statusText = li.querySelector('.status-text');
             
+            // Opens the Google Drive link in a new tab
             li.querySelector('.btn-download').addEventListener('click', () => {
-                alert("Downloading: " + fileName + "\n(Requires Firebase Storage)");
+                if(driveLink) {
+                    window.open(driveLink, '_blank');
+                } else {
+                    alert("No Drive link associated with this order.");
+                }
             });
 
             li.querySelector('.btn-done').addEventListener('click', () => {
